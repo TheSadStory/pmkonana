@@ -1,9 +1,12 @@
 package com.example.konanapm;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -15,6 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class LoginActivity extends AppCompatActivity {
     Button loginbutton;
     EditText usernameET, passwordET;
+    TextView signupLink;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,22 +32,30 @@ public class LoginActivity extends AppCompatActivity {
         loginbutton = findViewById(R.id.login_button);
         usernameET = findViewById(R.id.login_email);
         passwordET = findViewById(R.id.login_password);
+        signupLink = findViewById(R.id.signupRedirectText);
 
         loginbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserTable usertable;
-                try {
-                    usertable = new UserTable(usernameET.getText().toString(),passwordET.getText().toString(),-1);
-                }catch (Exception e) {
-                    Toast.makeText(LoginActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
-                    usertable = new UserTable("ERROR","Error",-1);
-                }
                 databaseHelper db = new databaseHelper(LoginActivity.this);
-                db.sendToDatabase(usertable);
+                //CHECKS IF USERNAME AND PASSWORD ARE CORRECT
+                boolean b = db.loginUser(usernameET.getText().toString(), passwordET.getText().toString());
+                if(b == true){
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(LoginActivity.this, "Diese nix gut", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
+        signupLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, SignActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
     }
