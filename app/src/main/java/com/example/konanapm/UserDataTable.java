@@ -3,8 +3,10 @@ package com.example.konanapm;
 public class UserDataTable {
     private String platformName, username, password;
     private int userID;
+    private int dataID;
 
-    public UserDataTable(String platformName, String username, String password, int userID) {
+    public UserDataTable(int dataID, String platformName, String username, String password, int userID) {
+        this.dataID = dataID;
         this.platformName = platformName;
         this.username = username;
         this.password = password;
@@ -15,6 +17,15 @@ public class UserDataTable {
     }
 
     //GETTERS AND SETTERS
+
+    public int getDataID() {
+        return dataID;
+    }
+
+    public void setDataID(int dataID) {
+        this.dataID = dataID;
+    }
+
     public String getPlatformName() {
         return platformName;
     }

@@ -40,14 +40,13 @@ public class UploadActivity extends AppCompatActivity {
                 String user = username.getText().toString();
                 String pass = password.getText().toString();
                 databaseHelper db = new databaseHelper(UploadActivity.this);
-
                 UserDataTable userdataTable;
                 try {
-                    userdataTable = new UserDataTable(plat,user,pass,-1);
+                    userdataTable = new UserDataTable(-1,plat,user,pass, 1);
                     Toast.makeText(UploadActivity.this, "Singup successful", Toast.LENGTH_SHORT).show();
                 }catch (Exception e) {
                     Toast.makeText(UploadActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
-                    userdataTable = new UserDataTable("ERROR","Error","error", -1);
+                    userdataTable = new UserDataTable(0 ,"ERROR","Error","error", -1);
                 }
                 //sends us too login page
                 db.sendToDatabase2(userdataTable);
