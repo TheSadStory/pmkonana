@@ -19,7 +19,8 @@ public class databaseHelper extends SQLiteOpenHelper {
         // Create the users table
         String createTable = "CREATE TABLE users (ID INTEGER PRIMARY KEY AUTOINCREMENT, USERNAME TEXT, PASSWORD TEXT)";
         // Create the user_data'table
-        String createUserDataTable = "CREATE TABLE user_data (data_id INTEGER PRIMARY KEY AUTOINCREMENT , PlatformName TEXT, Username TEXT, Password TEXT, FOREIGN KEY(ID) REFERENCES users (userID)) ";
+        //String createUserDataTable = "CREATE TABLE user_data (data_id INTEGER PRIMARY KEY AUTOINCREMENT , PlatformName TEXT, Username TEXT, Password TEXT, USERID INTEGER, FOREIGN KEY(USERID) REFERENCES users(USERID)) ";
+        String createUserDataTable = "CREATE TABLE user_data (data_id INTEGER PRIMARY KEY AUTOINCREMENT , PlatformName TEXT, Username TEXT, Password TEXT, USERID int)";
         db.execSQL(createTable);
         db.execSQL(createUserDataTable);
     }
@@ -67,7 +68,6 @@ public class databaseHelper extends SQLiteOpenHelper {
     public Boolean sendToDatabase2(UserDataTable userData) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put("user_id", userData.getUserID());
         cv.put("PlatformName", userData.getPlatformName());
         cv.put("Username", userData.getUsername());
         cv.put("Password", userData.getPassword());

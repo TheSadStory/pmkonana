@@ -1,5 +1,6 @@
 package com.example.konanapm;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -39,20 +40,17 @@ public class UploadActivity extends AppCompatActivity {
                 String user = username.getText().toString();
                 String pass = password.getText().toString();
                 databaseHelper db = new databaseHelper(UploadActivity.this);
-                int nr = 0;
-                UserTable userTable = new UserTable();
-                db.getUserID(userTable, nr);
+
                 UserDataTable userdataTable;
                 try {
-                     userdataTable = new UserDataTable(-1, plat, user, pass, 3);
+                    userdataTable = new UserDataTable(plat,user,pass,-1);
                     Toast.makeText(UploadActivity.this, "Singup successful", Toast.LENGTH_SHORT).show();
                 }catch (Exception e) {
                     Toast.makeText(UploadActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
-                     userdataTable = new UserDataTable(-1,"ERROR","Error","error",-1);
+                    userdataTable = new UserDataTable("ERROR","Error","error", -1);
                 }
+                //sends us too login page
                 db.sendToDatabase2(userdataTable);
-                String test = String.valueOf(nr);
-                Toast.makeText(UploadActivity.this, "es geht: "+test, Toast.LENGTH_SHORT).show();
 
             }
         });

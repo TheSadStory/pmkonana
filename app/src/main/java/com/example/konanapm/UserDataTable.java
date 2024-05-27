@@ -2,10 +2,9 @@ package com.example.konanapm;
 
 public class UserDataTable {
     private String platformName, username, password;
-    private int userID, dataID;
+    private int userID;
 
-    public UserDataTable(int dataID , String platformName, String username, String password, int userID) {
-        this.dataID = dataID;
+    public UserDataTable(String platformName, String username, String password, int userID) {
         this.platformName = platformName;
         this.username = username;
         this.password = password;
