@@ -9,6 +9,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class databaseHelper extends SQLiteOpenHelper {
     public databaseHelper(@Nullable Context context) {
         super(context, "users.db", null, 1);
@@ -80,19 +83,5 @@ public class databaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    //CHECKS USER ID AND GIVES IT OUT
-    public int getUserID(UserTable userDataTable,int userID) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT ID FROM users WHERE ID = ?";
-        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(userID)});
-        int id = -1; // Default value of ID if user dont exist
-        if (cursor.moveToFirst()) {
-            int idColumnIndex = cursor.getColumnIndex("ID");
-            if (idColumnIndex != -1) {
-                id = cursor.getInt(idColumnIndex);
-            }
-        }
-        cursor.close();
-        return id;
-    }
+
 }
