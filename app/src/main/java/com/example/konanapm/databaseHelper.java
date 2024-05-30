@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class databaseHelper extends SQLiteOpenHelper {
+
+
     public databaseHelper(@Nullable Context context) {
         super(context, "users.db", null, 1);
     }
@@ -97,5 +99,10 @@ public class databaseHelper extends SQLiteOpenHelper {
         }
         sqLiteDatabase.close();
         return id;
+    }
+
+    public Cursor getData(){
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT data_id as _id, PlatformName, Username, Password, USERID FROM user_data", null);
     }
 }
