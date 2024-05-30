@@ -14,8 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class databaseHelper extends SQLiteOpenHelper {
-
-
     public databaseHelper(@Nullable Context context) {
         super(context, "users.db", null, 1);
     }
@@ -101,8 +99,32 @@ public class databaseHelper extends SQLiteOpenHelper {
         return id;
     }
 
-    public Cursor getData(){
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        return sqLiteDatabase.rawQuery("SELECT data_id as _id, PlatformName, Username, Password, USERID FROM user_data", null);
+    //SHOW DATA
+    public List<UserDataTable> getEveryone(int id){
+            List<UserDataTable> returnList = new ArrayList<>();
+
+        String queryString = "SELECT * FROM user_data WHERE USERID = '" + id + "'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+             Cursor cursor = db.rawQuery(queryString,null);
+             if(cursor.moveToFirst()){
+                 do {
+                     int data_ID = cursor.getInt(0);
+                     String platform = cursor.getString(1);
+                     String username = cursor.getString(2);
+                     String password = cursor.getString(3);
+                     int UserID = cursor.getInt(4);
+                     UserDataTable newData = new UserDataTable(data_ID, platform, username, password, UserID);
+                     returnList.add(newData);
+                 }while(cursor.moveToNext());
+
+             }else {
+
+             }
+             cursor.close();
+             db.close();
+        return returnList;
     }
+
+
 }
