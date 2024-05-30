@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,6 +44,14 @@ public class MainActivity extends AppCompatActivity {
         //we bring our userID we sent here
         int userID = getIntent().getIntExtra("useridKey",-1);
         userText.setText("user ID: "+userID);
+
+        //SHOW DATA uwu
+        databaseHelper db = new databaseHelper(MainActivity.this);
+            List<UserDataTable> everyone = db.getEveryone(userID);
+
+            ArrayAdapter dataArray = new ArrayAdapter<UserDataTable>(MainActivity.this, android.R.layout.simple_list_item_1, everyone);
+            Liste.setAdapter(dataArray);
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
