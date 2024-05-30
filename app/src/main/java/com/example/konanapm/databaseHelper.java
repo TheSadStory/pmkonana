@@ -101,8 +101,8 @@ public class databaseHelper extends SQLiteOpenHelper {
         return id;
     }
 
-    public Cursor getData(){
+    public Cursor getData(int id){
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        return sqLiteDatabase.rawQuery("SELECT data_id as _id, PlatformName, Username, Password, USERID FROM user_data", null);
+        return sqLiteDatabase.rawQuery("SELECT data_id as _id, PlatformName, Username, Password, USERID FROM user_data WHERE USERID = '" + id + "'" , null);
     }
 }

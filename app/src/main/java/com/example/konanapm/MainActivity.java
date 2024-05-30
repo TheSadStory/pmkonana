@@ -48,10 +48,10 @@ public class MainActivity extends AppCompatActivity {
         int userID = getIntent().getIntExtra("useridKey",-1);
         userText.setText("user ID: "+userID);
 
-        Cursor cursor = DatabaseHelper.getData();
+        Cursor cursor = DatabaseHelper.getData(userID);
         String[] seeData = {"PlatformName", "Username", "Password"};
         int[] DatafromID = {R.id.seePlattform,R.id.seeUsername,R.id.seePassword}; //ka wieso int, string hat fehler angezeigt
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,R.layout.activity_main, cursor,seeData,DatafromID,0);
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,R.layout.activity_list, cursor,seeData,DatafromID,0);
         Liste.setAdapter(adapter);
 
         button.setOnClickListener(new View.OnClickListener() {
