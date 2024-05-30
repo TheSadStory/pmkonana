@@ -1,6 +1,7 @@
 package com.example.konanapm;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import android.database.sqlite.SQLiteDatabase;
 
 public class LoginActivity extends AppCompatActivity {
     Button loginbutton;
@@ -39,13 +41,24 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 databaseHelper db = new databaseHelper(LoginActivity.this);
                 //CHECKS IF USERNAME AND PASSWORD ARE CORRECT
-                boolean b = db.loginUser(usernameET.getText().toString(), passwordET.getText().toString());
+                String user = usernameET.getText().toString();
+                String pass = passwordET.getText().toString();
+                boolean b = db.loginUser(user, pass);
+
                 if(b == true){
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    int userID = db.getUserId(user); //our Method that gets our ID
+
+                    intent.putExtra("useridKey",userID);
+                    db.close();
                     startActivity(intent);
                 }else{
                     Toast.makeText(LoginActivity.this, "Diese nix gut", Toast.LENGTH_SHORT).show();
                 }
+                // CHECKS AND SAVES ID FROM USER
+
+
+
             }
         });
 
@@ -56,6 +69,8 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
 
 
     }

@@ -59,12 +59,15 @@ public class SignActivity extends AppCompatActivity {
                 // if everything ok data being saved in table
                 try {
                     userTable = new UserTable(usernameET.getText().toString(),passwordET.getText().toString(),-1);
-                    Toast.makeText(SignActivity.this, "Singup successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignActivity.this, "Singup successful ", Toast.LENGTH_SHORT).show();
+
+
                 }catch (Exception e) {
                     Toast.makeText(SignActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
                     userTable = new UserTable("ERROR","Error",-1);
                 }
                 db.sendToDatabase(userTable);
+                db.close();
                 //sends us too login page
                 Intent intent = new Intent(SignActivity.this, LoginActivity.class);
                 startActivity(intent);

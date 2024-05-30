@@ -1,5 +1,6 @@
 package com.example.konanapm;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -23,7 +24,6 @@ public class databaseHelper extends SQLiteOpenHelper {
         String createTable = "CREATE TABLE users (ID INTEGER PRIMARY KEY AUTOINCREMENT, USERNAME TEXT, PASSWORD TEXT)";
         // Create the user_data'table
         String createUserDataTable = "CREATE TABLE user_data (data_id INTEGER PRIMARY KEY AUTOINCREMENT , PlatformName TEXT, Username TEXT, Password TEXT, USERID INTEGER, FOREIGN KEY(USERID) REFERENCES users(USERID)) ";
-        //String createUserDataTable = "CREATE TABLE user_data (data_id INTEGER PRIMARY KEY AUTOINCREMENT , PlatformName TEXT, Username TEXT, Password TEXT, USERID int)";
         db.execSQL(createTable);
         db.execSQL(createUserDataTable);
     }
@@ -83,5 +83,14 @@ public class databaseHelper extends SQLiteOpenHelper {
         }
     }
 
-
+    //CHECKS USER ID AND GIVES IT OUT
+    public int getUserId(String username) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT ID FROM users WHERE USERNAME=?", new String[]{username});
+        int id = -1;
+        if (cursor.moveToFirst()) id = cursor.getInt(0);
+        cursor.close();
+        sqLiteDatabase.close();
+        return id;
+    }
 }
