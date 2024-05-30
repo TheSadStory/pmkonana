@@ -41,13 +41,14 @@ public class MainActivity extends AppCompatActivity {
         userText = findViewById(R.id.userText);
 
         //we bring our userID we sent here
-        int userID = getIntent().getIntExtra("USER_ID",-1);
+        int userID = getIntent().getIntExtra("useridKey",-1);
         userText.setText("user ID: "+userID);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, UploadActivity.class);
+                intent.putExtra("useridKey2",userID);
                 startActivity(intent);
             }
         });
