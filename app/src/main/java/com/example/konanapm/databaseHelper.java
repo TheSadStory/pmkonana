@@ -98,4 +98,33 @@ public class databaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.close();
         return id;
     }
+
+    //SHOW DATA
+    public List<UserDataTable> getEveryone(int id){
+            List<UserDataTable> returnList = new ArrayList<>();
+
+        String queryString = "SELECT * FROM user_data WHERE USERID = '" + id + "'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+             Cursor cursor = db.rawQuery(queryString,null);
+             if(cursor.moveToFirst()){
+                 do {
+                     int data_ID = cursor.getInt(0);
+                     String platform = cursor.getString(1);
+                     String username = cursor.getString(2);
+                     String password = cursor.getString(3);
+                     int UserID = cursor.getInt(4);
+                     UserDataTable newData = new UserDataTable(data_ID, platform, username, password, UserID);
+                     returnList.add(newData);
+                 }while(cursor.moveToNext());
+
+             }else {
+
+             }
+             cursor.close();
+             db.close();
+        return returnList;
+    }
+
+
 }
