@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     int userID = db.getUserId(user); //our Method that gets our ID
 
-                    intent.putExtra("useridKey",userID);//
+                    intent.putExtra("useridKey",userID);//Konrad
                     db.close();
                     startActivity(intent);
                 }else{
