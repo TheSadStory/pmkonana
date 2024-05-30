@@ -43,7 +43,10 @@ public class LoginActivity extends AppCompatActivity {
                 //CHECKS IF USERNAME AND PASSWORD ARE CORRECT
                 String user = usernameET.getText().toString();
                 String pass = passwordET.getText().toString();
-                boolean b = db.loginUser(user, pass);
+                PasswordHasher pw = new PasswordHasher();
+                String passwordHashed = pw.hash(pass);
+
+                boolean b = db.loginUser(user, passwordHashed);
 
                 if(b == true){
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
