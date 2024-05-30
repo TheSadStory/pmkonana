@@ -32,7 +32,8 @@ public class UploadActivity extends AppCompatActivity {
         username = findViewById(R.id.uploadUsername);
         password = findViewById(R.id.uploadPassword);
         saveButton = findViewById(R.id.saveButton);
-
+        int userID = getIntent().getIntExtra("useridKey2",-1);
+        System.out.println("UPLOAD ACTIVITY USER ID USER ID USER ID: "+userID);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
