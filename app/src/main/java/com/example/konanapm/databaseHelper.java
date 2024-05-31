@@ -41,6 +41,10 @@ public class databaseHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put("USERNAME", usertable.getUsername());
         cv.put("PASSWORD", usertable.getPassword());
+
+        String hashedPassword = PasswordHasher.hashPassword(usertable.getPassword());
+        cv.put("PASSWORD", hashedPassword);
+
         long insert = db.insert("users", null, cv);
         if (insert == -1) {
             return false;
@@ -64,6 +68,13 @@ public class databaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM users WHERE USERNAME = ? AND PASSWORD = ?"; //  idk what ? does exsacly i will have too google it better
         Cursor cursor = db.rawQuery(query, new String[]{username, password});
+
+        if (cursor.moveToFirst()) {
+            String storedHashedPassword = cursor.getString(0);
+            cursor.close();
+            return PasswordHasher.checkPassword(password, storedHashedPassword);
+        }
+
         int count = cursor.getCount();
         cursor.close();
         return count > 0;
