@@ -51,7 +51,6 @@ public class UploadActivity extends AppCompatActivity {
                 }
                 //sends us too login page
                 db.sendToDatabase2(userdataTable);
-
             }
         });
 
